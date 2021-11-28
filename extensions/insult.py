@@ -19,8 +19,8 @@ async def insult(ctx: context.Context) -> None:
     try:
         random_insult = await get_random_insult()
     except InsultApiError:
-        random_insult = """🦆 you!"""
-    await target.reply(random_insult)
+        random_insult = ":duck: you!"
+    await ctx.respond(random_insult, reply=True)
 
 
 async def get_random_insult():
