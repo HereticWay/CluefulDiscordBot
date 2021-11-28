@@ -13,14 +13,14 @@ class InsultApiError(Exception):
 @insult_plugin.command
 @lightbulb.option("target", "A member to insult.", hikari.User, required=False)
 @lightbulb.command("insult", "Insult a member for good.")
-@lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
+@lightbulb.implements(commands.SlashCommand)
 async def insult(ctx: context.Context) -> None:
     target = ctx.options.target if (ctx.options.target is not None) else ctx.user
     try:
         random_insult = await get_random_insult()
     except InsultApiError:
         random_insult = ":duck: you!"
-    await ctx.respond(random_insult, reply=True)
+    await ctx.respond(f"{target.mention} {random_insult}")
 
 
 async def get_random_insult() -> str:
