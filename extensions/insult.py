@@ -3,14 +3,14 @@ import lightbulb
 from lightbulb import commands, context
 import aiohttp
 
-info_plugin = lightbulb.Plugin("Insult")
+insult_plugin = lightbulb.Plugin("Insult")
 
 
 class InsultApiError(Exception):
     pass
 
 
-@info_plugin.command
+@insult_plugin.command
 @lightbulb.option("target", "A member to insult.", hikari.User, required=False)
 @lightbulb.command("insult", "Insult a member for good.")
 @lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
@@ -23,7 +23,7 @@ async def insult(ctx: context.Context) -> None:
     await ctx.respond(random_insult, reply=True)
 
 
-async def get_random_insult():
+async def get_random_insult() -> str:
     'Gets a random insult asynchronously using the EvilInsult API'
     async with aiohttp.ClientSession() as client:
         async with client.get('https://evilinsult.com/generate_insult.php') as response:
@@ -34,4 +34,4 @@ async def get_random_insult():
 
 
 def load(bot: lightbulb.BotApp) -> None:
-    bot.add_plugin(info_plugin)
+    bot.add_plugin(insult_plugin)
