@@ -1,0 +1,4 @@
+.env
+.dcbotenv/
+.vscode/
+__pycache__/
