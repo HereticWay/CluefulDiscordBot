@@ -1,6 +1,9 @@
 #!/usr/bin/python3
-from bot import bot
+import bot
 import os
+
+GUILD_ID = int(os.getenv("GUILD_ID"))
+TOKEN = os.getenv('TOKEN')
 
 
 def main():
@@ -8,7 +11,9 @@ def main():
         import uvloop
         uvloop.install()
 
-    bot.run()
+    my_bot = bot.Bot(token=TOKEN, guild_id=GUILD_ID)
+    my_bot.load_extensions_from("./extensions/", must_exist=True)
+    my_bot.run()
 
 
 if __name__ == "__main__":
