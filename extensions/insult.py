@@ -24,7 +24,7 @@ async def insult(ctx: context.Context) -> None:
 
 
 async def get_random_insult() -> str:
-    'Gets a random insult asynchronously using the EvilInsult API'
+    """Gets a random insult asynchronously using the EvilInsult API"""
     async with aiohttp.ClientSession() as client:
         async with client.get('https://evilinsult.com/generate_insult.php') as response:
             if not response.status == 200:

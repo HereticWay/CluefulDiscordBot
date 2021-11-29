@@ -1,8 +1,8 @@
-from os import name
+import asyncio
+from datetime import datetime
+
 import hikari
 import lightbulb
-from datetime import datetime, timedelta
-import asyncio
 from lightbulb import commands, context
 
 utils_plugin = lightbulb.Plugin("Utils")
@@ -17,9 +17,9 @@ async def clear(ctx: context.Context) -> None:
     target_channel = ctx.options.target if (ctx.options.target is not None) else ctx.get_channel()
     clear_count = ctx.options.count if (ctx.options.count is not None) else 1
 
-    #async with target_channel.trigger_typing():
-        # TODO: Implement clear functionality
-    
+    # TODO: Implement clear functionality
+    # async with target_channel.trigger_typing():
+
     sent_message = await ctx.respond(f"Not implemented yet!")
     await asyncio.sleep(10)
     await sent_message.delete()
@@ -41,10 +41,10 @@ async def stats(ctx: context.Context) -> None:
     guild = ctx.get_guild()
     roles = await guild.fetch_roles()
     usable_roles = roles[1:]
-    
+
     members = guild.get_members()
     dicts = {}
-    
+
     for role in usable_roles:
         dicts[role.id] = 0
 
@@ -82,7 +82,7 @@ async def stats(ctx: context.Context) -> None:
 @lightbulb.command(name="ping", description="The bot's ping")
 @lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
 async def ping(ctx: context.Context) -> None:
-    await ctx.respond(f"Pong! Latency: {ctx.bot.heartbeat_latency*1000:.2f}ms")
+    await ctx.respond(f"Pong! Latency: {ctx.bot.heartbeat_latency * 1000:.2f}ms")
 
 
 def load(bot: lightbulb.BotApp) -> None:
