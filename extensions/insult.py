@@ -11,8 +11,8 @@ class InsultApiError(Exception):
 
 
 @insult_plugin.command
-@lightbulb.option("target", "A member to insult.", hikari.User, required=False)
-@lightbulb.command("insult", "Insult a member for good.")
+@lightbulb.option(name="target", description="A member to insult.", type=hikari.User, required=False)
+@lightbulb.command(name="insult", description="Insult a member for good.")
 @lightbulb.implements(commands.SlashCommand)
 async def insult(ctx: context.Context) -> None:
     target = ctx.options.target if (ctx.options.target is not None) else ctx.user

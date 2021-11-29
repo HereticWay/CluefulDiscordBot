@@ -7,8 +7,8 @@ info_plugin = lightbulb.Plugin("Info")
 
 
 @info_plugin.command
-@lightbulb.option("target", "The member to get information about.", hikari.User, required=False)
-@lightbulb.command("userinfo", "Get info on a server member.")
+@lightbulb.option(name="target", description="The member to get information about.", type=hikari.User, required=False)
+@lightbulb.command(name="userinfo", description="Get information abouton a server member.")
 @lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
 async def userinfo(ctx: context.Context) -> None:
     target = ctx.options.target if ctx.options.target is not None else ctx.user

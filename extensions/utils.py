@@ -1,3 +1,4 @@
+from os import name
 import hikari
 import lightbulb
 from datetime import datetime, timedelta
@@ -8,9 +9,9 @@ utils_plugin = lightbulb.Plugin("Utils")
 
 
 @utils_plugin.command
-@lightbulb.option("target", "A channel to clear.", hikari.GuildChannel, required=False)
-@lightbulb.option("count", "Number of messages to clear.", int, required=False)
-@lightbulb.command("clear", "Clear messages from a channel.")
+@lightbulb.option(name="target", description="A channel to clear.", type=hikari.GuildChannel, required=False)
+@lightbulb.option(name="count", description="Number of messages to clear.", type=int, required=False)
+@lightbulb.command(name="clear", description="Clear messages from a channel.")
 @lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
 async def clear(ctx: context.Context) -> None:
     target_channel = ctx.options.target if (ctx.options.target is not None) else ctx.get_channel()
@@ -25,8 +26,8 @@ async def clear(ctx: context.Context) -> None:
 
 
 @utils_plugin.command
-@lightbulb.option("nickname", "Chosen nickname.", str, required=False)
-@lightbulb.command("nickname", "Change your nickname.", aliases=["nick"])
+@lightbulb.option(name="nickname", description="Chosen nickname.", type=str, required=False)
+@lightbulb.command(name="nickname", description="Change your nickname.", aliases=["nick"])
 @lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
 async def nickname(ctx: context.Context) -> None:
     nick = ctx.options.nickname if (ctx.options.nickname is not None) else ""
@@ -34,7 +35,7 @@ async def nickname(ctx: context.Context) -> None:
 
 
 @utils_plugin.command
-@lightbulb.command("serverstats", "Get stats of the server.")
+@lightbulb.command(name="serverstats", description="Get stats of the server.")
 @lightbulb.implements(commands.SlashCommand)
 async def stats(ctx: context.Context) -> None:
     guild = ctx.get_guild()

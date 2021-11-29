@@ -17,7 +17,7 @@ bot.load_extensions_from("./extensions/", must_exist=True)
 
 
 @bot.command
-@lightbulb.command("ping", description="The bot's ping")
+@lightbulb.command(name="ping", description="The bot's ping")
 @lightbulb.implements(commands.PrefixCommand)
 async def ping(ctx: context.Context) -> None:
     await ctx.respond(f"Pong! Latency: {bot.heartbeat_latency*1000:.2f}ms")
