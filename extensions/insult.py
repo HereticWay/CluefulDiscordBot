@@ -1,6 +1,8 @@
 import hikari
 import lightbulb
 from lightbulb import commands, context
+from html import unescape
+import unicodedata
 import aiohttp
 
 insult_plugin = lightbulb.Plugin("Insult")
@@ -17,10 +19,15 @@ class InsultApiError(Exception):
 async def insult(ctx: context.Context) -> None:
     target = ctx.options.target if (ctx.options.target is not None) else ctx.user
     try:
-        random_insult = await get_random_insult()
+        random_insult = handle_html_entities(await get_random_insult())
     except InsultApiError:
         random_insult = ":duck: you!"
     await ctx.respond(f"{target.mention} {random_insult}")
+
+
+def handle_html_entities(text: str) -> str:
+    unescaped_text = unescape(text)
+    return unicodedata.normalize('NFKC', unescaped_text)
 
 
 async def get_random_insult() -> str:
