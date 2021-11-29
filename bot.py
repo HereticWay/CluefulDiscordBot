@@ -14,10 +14,3 @@ bot = lightbulb.BotApp(
     intents=hikari.Intents.ALL, default_enabled_guilds=(GUILD_ID,)
 )
 bot.load_extensions_from("./extensions/", must_exist=True)
-
-
-@bot.command
-@lightbulb.command(name="ping", description="The bot's ping")
-@lightbulb.implements(commands.PrefixCommand)
-async def ping(ctx: context.Context) -> None:
-    await ctx.respond(f"Pong! Latency: {bot.heartbeat_latency*1000:.2f}ms")

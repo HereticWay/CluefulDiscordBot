@@ -76,7 +76,14 @@ async def stats(ctx: context.Context) -> None:
         )
 
     await ctx.respond(embed)
-        
+
+
+@utils_plugin.command
+@lightbulb.command(name="ping", description="The bot's ping")
+@lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
+async def ping(ctx: context.Context) -> None:
+    await ctx.respond(f"Pong! Latency: {ctx.bot.heartbeat_latency*1000:.2f}ms")
+
 
 def load(bot: lightbulb.BotApp) -> None:
     bot.add_plugin(utils_plugin)
