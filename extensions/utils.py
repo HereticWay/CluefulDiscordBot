@@ -16,16 +16,10 @@ async def clear(ctx: context.Context) -> None:
     target_channel = ctx.options.target if (ctx.options.target is not None) else ctx.get_channel()
     clear_count = ctx.options.count if (ctx.options.count is not None) else 1
 
-    async with target_channel.trigger_typing():
-        now = datetime.utcnow()
-        two_weeks_ago = now - timedelta(weeks=2)
-        history = await target_channel.fetch_history(after=two_weeks_ago)
-        history_limited = history[-clear_count-1:]
-
-        deleted_messages_count = len(history_limited)
-        await target_channel.delete_messages(history_limited)
+    #async with target_channel.trigger_typing():
+        # TODO: Implement clear functionality
     
-    sent_message = await ctx.respond(f"Deleted {deleted_messages_count} messages!")
+    sent_message = await ctx.respond(f"Not implemented yet!")
     await asyncio.sleep(10)
     await sent_message.delete()
 
