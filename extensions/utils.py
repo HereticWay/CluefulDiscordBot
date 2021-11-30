@@ -31,7 +31,11 @@ async def clear(ctx: context.Context) -> None:
 @lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
 async def nickname(ctx: context.Context) -> None:
     nick = ctx.options.nickname if (ctx.options.nickname is not None) else ""
-    await ctx.member.edit(nick=nick)
+    try:
+        await ctx.member.edit(nick=nick)
+        await ctx.respond(f"Nickname changed to {nick}.", reply=True)
+    except:
+        await ctx.respond(f"Could not change your nickname.", reply=True)
 
 
 @utils_plugin.command
