@@ -33,9 +33,16 @@ async def nickname(ctx: context.Context) -> None:
     nick = ctx.options.nickname if (ctx.options.nickname is not None) else ""
     try:
         await ctx.member.edit(nick=nick)
-        await ctx.respond(f"Nickname changed to {nick}.", reply=True)
+        sent_message = await ctx.respond(f"Nickname changed to {nick}.", reply=True)
+        await asyncio.sleep(10)
+        await sent_message.delete()
+        await ctx.event.message.delete()
     except:
-        await ctx.respond(f"Could not change your nickname.", reply=True)
+        
+        sent_message = await ctx.respond(f"Could not change your nickname.", reply=True)
+        await asyncio.sleep(10)
+        await sent_message.delete()
+        await ctx.event.message.delete()
 
 
 @utils_plugin.command
