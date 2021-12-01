@@ -20,45 +20,32 @@ async def clear(ctx: context.Context) -> None:
     # TODO: Implement clear functionality
     # async with target_channel.trigger_typing():
 
-    sent_message = await ctx.respond(f"Not implemented yet!")
+    sent_message = await ctx.respond("Not implemented yet!")
     await asyncio.sleep(10)
     await sent_message.delete()
 
-# nickname - PrefixCommand
+
 @utils_plugin.command
 @lightbulb.option(name="nickname", description="Chosen nickname.", type=str, required=False)
 @lightbulb.command(name="nickname", description="Change your nickname.", aliases=["nick"])
-@lightbulb.implements(commands.PrefixCommand)
+@lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
 async def nickname(ctx: context.Context) -> None:
     nick = ctx.options.nickname if (ctx.options.nickname is not None) else ""
+    is_prefix_command = (ctx.interaction is None)
+
     try:
         await ctx.member.edit(nick=nick)
         sent_message = await ctx.respond(f"Nickname changed to {nick}.", reply=True)
         await asyncio.sleep(10)
         await sent_message.delete()
-        await ctx.event.message.delete()
-    except:
-        sent_message = await ctx.respond(f"Could not change your nickname.", reply=True)
+        if (is_prefix_command):
+            await ctx.event.message.delete()
+    except hikari.ForbiddenError:
+        sent_message = await ctx.respond("Could not change your nickname.", reply=True)
         await asyncio.sleep(10)
         await sent_message.delete()
-        await ctx.event.message.delete()
-
-# nickname - SlashCommand
-@utils_plugin.command
-@lightbulb.option(name="nickname", description="Chosen nickname.", type=str, required=False)
-@lightbulb.command(name="nickname", description="Change your nickname.", aliases=["nick"])
-@lightbulb.implements(commands.SlashCommand)
-async def nickname(ctx: context.Context) -> None:
-    nick = ctx.options.nickname if (ctx.options.nickname is not None) else ""
-    try:
-        await ctx.member.edit(nick=nick)
-        sent_message = await ctx.respond(f"Nickname changed to {nick}.")
-        await asyncio.sleep(10)
-        await sent_message.delete()
-    except:
-        sent_message = await ctx.respond(f"Could not change your nickname.")
-        await asyncio.sleep(10)
-        await sent_message.delete()
+        if (is_prefix_command):
+            await ctx.event.message.delete()
 
 
 @utils_plugin.command
@@ -84,7 +71,7 @@ async def stats(ctx: context.Context) -> None:
     embed = (
         hikari.Embed(
             title=f"{guild.name}",
-            description=f"Server Stats",
+            description="Server Stats",
             colour=0xFF793B,
             timestamp=datetime.now().astimezone(),
         )
