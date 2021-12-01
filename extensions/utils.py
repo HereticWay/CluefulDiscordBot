@@ -38,13 +38,13 @@ async def nickname(ctx: context.Context) -> None:
         sent_message = await ctx.respond(f"Nickname changed to {nick}.", reply=True)
         await asyncio.sleep(10)
         await sent_message.delete()
-        if (is_prefix_command):
+        if is_prefix_command:
             await ctx.event.message.delete()
     except hikari.ForbiddenError:
         sent_message = await ctx.respond("Could not change your nickname.", reply=True)
         await asyncio.sleep(10)
         await sent_message.delete()
-        if (is_prefix_command):
+        if is_prefix_command:
             await ctx.event.message.delete()
 
 
