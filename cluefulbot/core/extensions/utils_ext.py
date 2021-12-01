@@ -1,9 +1,9 @@
 import asyncio
-from datetime import datetime
-
 import hikari
 import lightbulb
+from datetime import datetime
 from lightbulb import commands, context
+from cluefulbot.core.utils.disappear import disappear
 
 utils_plugin = lightbulb.Plugin("Utils")
 
@@ -13,6 +13,7 @@ utils_plugin = lightbulb.Plugin("Utils")
 @lightbulb.option(name="count", description="Number of messages to clear.", type=int, required=False)
 @lightbulb.command(name="clear", description="Clear messages from a channel.")
 @lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
+@disappear(after=10)
 async def clear(ctx: context.Context) -> None:
     target_channel = ctx.options.target if (ctx.options.target is not None) else ctx.get_channel()
     clear_count = ctx.options.count if (ctx.options.count is not None) else 1
@@ -20,15 +21,14 @@ async def clear(ctx: context.Context) -> None:
     # TODO: Implement clear functionality
     # async with target_channel.trigger_typing():
 
-    sent_message = await ctx.respond("Not implemented yet!")
-    await asyncio.sleep(10)
-    await sent_message.delete()
+    await ctx.respond("Not implemented yet!")
 
 
 @utils_plugin.command
 @lightbulb.option(name="nickname", description="Chosen nickname.", type=str, required=False)
 @lightbulb.command(name="nickname", description="Change your nickname.", aliases=["nick"])
 @lightbulb.implements(commands.PrefixCommand, commands.SlashCommand)
+@disappear(after=10)
 async def nickname(ctx: context.Context) -> None:
     nick = ctx.options.nickname if (ctx.options.nickname is not None) else ""
     is_prefix_command = (ctx.interaction is None)
@@ -36,16 +36,8 @@ async def nickname(ctx: context.Context) -> None:
     try:
         await ctx.member.edit(nick=nick)
         sent_message = await ctx.respond(f"Nickname changed to {nick}.", reply=True)
-        await asyncio.sleep(10)
-        await sent_message.delete()
-        if is_prefix_command:
-            await ctx.event.message.delete()
     except hikari.ForbiddenError:
         sent_message = await ctx.respond("Could not change your nickname.", reply=True)
-        await asyncio.sleep(10)
-        await sent_message.delete()
-        if is_prefix_command:
-            await ctx.event.message.delete()
 
 
 @utils_plugin.command
