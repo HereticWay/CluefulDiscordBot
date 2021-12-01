@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import bot
+from cluefulbot.core import cluefulbot
 import os
 
 GUILD_ID = int(os.getenv("GUILD_ID"))
@@ -11,8 +11,7 @@ def main():
         import uvloop
         uvloop.install()
 
-    my_bot = bot.Bot(token=TOKEN, guild_id=GUILD_ID)
-    my_bot.load_extensions_from("./extensions/", must_exist=True)
+    my_bot = cluefulbot.CluefulBot(token=TOKEN, guild_id=GUILD_ID)
     my_bot.run()
 
 
