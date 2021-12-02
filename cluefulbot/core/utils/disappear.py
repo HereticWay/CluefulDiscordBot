@@ -1,5 +1,6 @@
 from cluefulbot.core.utils import utils
 from lightbulb import context
+import hikari
 import asyncio
 import functools
 
@@ -21,9 +22,13 @@ def disappear(after: int):
             await wrapped_function(ctx)
             await asyncio.sleep(after)
 
-            channel = ctx.get_channel()
-            context_messages = [await response.message() for response in ctx.responses]
-            command_message = ctx.event.message if utils.is_prefix_command(ctx) else None
-            await channel.delete_messages(context_messages, command_message)
+            channel: hikari.GuildChannel = ctx.get_channel()
+            if utils.is_prefix_command(ctx):
+                context_messages = frozenset([await response.message() for response in ctx.responses])
+                command_message = ctx.event.message
+                await channel.delete_messages(context_messages, command_message)
+            else:
+                interaction: hikari.CommandInteraction = ctx.interaction
+                await interaction.delete_initial_response()
         return wrapper
     return decorator
