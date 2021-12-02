@@ -1,9 +1,11 @@
-import asyncio
 import hikari
 import lightbulb
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from lightbulb import commands, context
 from cluefulbot.core.utils.disappear import disappear
+from cluefulbot.core.utils import utils
+from hikari import iterators
+from hikari import messages
 
 utils_plugin = lightbulb.Plugin("Utils")
 
@@ -18,10 +20,18 @@ async def clear(ctx: context.Context) -> None:
     target_channel = ctx.options.target if (ctx.options.target is not None) else ctx.get_channel()
     clear_count = ctx.options.count if (ctx.options.count is not None) else 1
 
-    # TODO: Implement clear functionality
-    # async with target_channel.trigger_typing():
+    async with target_channel.trigger_typing():
+        command = ctx.event.message if utils.is_prefix_command(ctx) else ctx.interaction
 
-    await ctx.respond("Not implemented yet!")
+        two_weeks_ago = datetime.now(timezone.utc) - timedelta(weeks=2)
+        history_iterator = target_channel.fetch_history(before=command) \
+            .limit(clear_count) \
+            .take_while(lambda msg: two_weeks_ago < msg.created_at)
+
+        history = frozenset([message async for message in history_iterator])
+        await target_channel.delete_messages(history)
+
+    await ctx.respond(f"Deleted {len(history)} message(s)!")
 
 
 @utils_plugin.command
