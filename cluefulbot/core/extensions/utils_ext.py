@@ -41,13 +41,12 @@ async def clear(ctx: context.Context) -> None:
 @disappear(after=10)
 async def nickname(ctx: context.Context) -> None:
     nick = ctx.options.nickname if (ctx.options.nickname is not None) else ""
-    is_prefix_command = (ctx.interaction is None)
 
     try:
         await ctx.member.edit(nick=nick)
-        sent_message = await ctx.respond(f"Nickname changed to {nick}.", reply=True)
+        await ctx.respond(f"Nickname changed to {nick}.", reply=True)
     except hikari.ForbiddenError:
-        sent_message = await ctx.respond("Could not change your nickname.", reply=True)
+        await ctx.respond("Could not change your nickname.", reply=True)
 
 
 @utils_plugin.command
