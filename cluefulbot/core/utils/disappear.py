@@ -10,15 +10,20 @@ def disappear(after: int):
     Args:
         after (int): number of seconds to disappear
     """
-    def decorator(fnc):
-        @functools.wraps(fnc)
+    if type(after) is not int:
+        raise TypeError("Argument after should be an integer!")
+    if after < 1:
+        raise ValueError("Argument after should be a positive integer!")
+
+    def decorator(wrapped_function):
+        @functools.wraps(wrapped_function)
         async def wrapper(ctx: context.Context):
-            await fnc(ctx)
+            await wrapped_function(ctx)
+            await asyncio.sleep(after)
 
             channel = ctx.get_channel()
             context_messages = [await response.message() for response in ctx.responses]
             command_message = ctx.event.message if utils.is_prefix_command(ctx) else None
-            await asyncio.sleep(after)
             await channel.delete_messages(context_messages, command_message)
         return wrapper
     return decorator
