@@ -3,7 +3,7 @@ import lightbulb
 
 
 class CluefulBot(lightbulb.BotApp):
-    def __init__(self, token, guild_id):
+    def __init__(self, token: str, guild_id: int) -> None:
         lightbulb.BotApp.__init__(
             self,
             token=token,
