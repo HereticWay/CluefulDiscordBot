@@ -11,4 +11,4 @@ class CluefulBot(lightbulb.BotApp):
             banner=None,
             intents=hikari.Intents.ALL, default_enabled_guilds=(guild_id,)
         )
-        self.load_extensions_from("./cluefulbot/core/extensions", must_exist=True)
+        self.load_extensions_from("./cluefulbot/core/extensions", recursive=True, must_exist=True)
