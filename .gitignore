@@ -2,4 +2,5 @@
 .dcbotenv/
 .vscode/
 .idea/
+.cache/
 __pycache__/

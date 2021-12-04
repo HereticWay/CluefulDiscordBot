@@ -3,3 +3,4 @@ hikari[speedups] >= 2.0.0.dev104
 hikari-lightbulb >= 2.0.1
 aiohttp >= 3.8.1
 python-dotenv[cli] >= 0.19.2
+youtube-dl >= 2021.6.6
