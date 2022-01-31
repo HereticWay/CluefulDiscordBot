@@ -9,4 +9,4 @@ services:
       - ./:/App
 
   lavalink:
-    build: fredboat/lavalink:dev
+    image: fredboat/lavalink:dev
