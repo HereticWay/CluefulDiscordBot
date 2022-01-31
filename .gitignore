@@ -1,6 +1,11 @@
-.env
-.dcbotenv/
+# IDE specific
 .vscode/
 .idea/
+
+# Python and/or script related
+venv/
 .cache/
 __pycache__/
+
+# Secrets
+.env
