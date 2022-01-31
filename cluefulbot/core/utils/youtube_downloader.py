@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 import typing as t
-import youtube_dl
+import yt_dlp
 
 _last_filename = ""
 
@@ -28,7 +28,7 @@ def download_mp3(url: str) -> tuple[bool, str]:
 
     global _last_filename
     try:
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download((url,))
             return True, _last_filename
     except Exception:  # TODO: implement proper error handling instead
