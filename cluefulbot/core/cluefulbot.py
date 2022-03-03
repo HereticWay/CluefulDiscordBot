@@ -1,6 +1,6 @@
 import hikari
 import lightbulb
-from utils.config import *
+from cluefulbot.core.utils.config import *
 
 
 class CluefulBot(lightbulb.BotApp):
