@@ -30,8 +30,12 @@ def get_lavalink_host() -> str:
     if not host:
         raise ConfigParseException("Error: env variable LAVALINK_HOST is not set!")
 
+    return host
+
 
 def get_lavalink_password() -> str:
     password = os.getenv("LAVALINK_PASSWORD")
     if not password:
         raise ConfigParseException("Error: env variable LAVALINK_PASSWORD is not set!")
+
+    return password
