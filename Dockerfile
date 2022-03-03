@@ -1,7 +1,7 @@
 FROM python:3.10
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y build-essential && \
+    apt-get install --no-install-recommends -y build-essential ffmpeg && \
     apt-get clean
 
 WORKDIR /App
