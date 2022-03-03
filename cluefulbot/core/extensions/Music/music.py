@@ -96,7 +96,7 @@ async def _play(ctx: lightbulb.Context) -> None:
     query = ctx.options.query
     lavalink: lavasnek_rs.Lavalink = music_plugin.bot.d["lavalink"]
 
-    query_info = await lavalink.search_tracks(query)
+    query_info = await lavalink.auto_search_tracks(query)
     if not query_info.tracks:
         await ctx.respond("Couldn't find this song!")
         return
