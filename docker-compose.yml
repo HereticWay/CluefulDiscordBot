@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  dcbot:
+    build: .
+    env_file: .env
+    depends_on:
+      - lavalink
+    volumes:
+      - ./:/App
+
+  lavalink:
+    image: fredboat/lavalink:dev
+    volumes:
+      - ./lavalink-config.yml:/opt/Lavalink/application.yml

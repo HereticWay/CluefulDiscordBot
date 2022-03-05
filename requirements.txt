@@ -1,0 +1,7 @@
+uvloop ~= 0.16.0; sys_platform != 'win32'
+hikari[speedups] ~= 2.0.0.dev106
+hikari-lightbulb ~= 2.2.0
+lavasnek-rs ~= 0.1.0a4
+aiohttp ~= 3.8.1
+python-dotenv[cli] ~= 0.19.2
+yt-dlp ~= 2022.2.4
