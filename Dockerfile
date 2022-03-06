@@ -12,4 +12,4 @@ COPY ./requirements.txt .
 ENV PYTHONUNBUFFERED=1
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["python", "main.py"]
+ENTRYPOINT ["python", "-OO", "main.py"]
