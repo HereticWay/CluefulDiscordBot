@@ -1,3 +1,5 @@
+import sys
+
 import hikari
 import lavasnek_rs
 import lightbulb
@@ -108,6 +110,7 @@ async def _play(ctx: lightbulb.Context) -> None:
         await play_builder.queue()
     except lavasnek_rs.NoSessionPresent:
         await ctx.respond("Use '/join' first!")
+        return
 
     await ctx.respond(f"Added to queue: {track.info.title}")
 
