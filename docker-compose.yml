@@ -7,8 +7,10 @@ services:
       - lavalink
     volumes:
       - ./:/App
+    restart: unless-stopped
 
   lavalink:
     image: fredboat/lavalink:dev
     volumes:
       - ./lavalink-config.yml:/opt/Lavalink/application.yml
+    restart: unless-stopped
