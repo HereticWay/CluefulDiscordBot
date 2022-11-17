@@ -9,3 +9,6 @@ __pycache__/
 
 # Secrets
 .env
+
+# Data
+ads.json
